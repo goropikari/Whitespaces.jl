@@ -47,7 +47,7 @@ function vm_execute!(ws)
         elseif insn == :heap_read
             address = pop!(ws.stack)
             value = ws.heap[address]
-            push(ws.stack, value)
+            push!(ws.stack, value)
         elseif insn == :label
             # do nothing
         elseif insn == :jump
