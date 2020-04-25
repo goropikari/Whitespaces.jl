@@ -25,9 +25,11 @@ function compile!(ws::Whitespace)
     nothing
 end
 
-function execute!(ws::Whitespace)
+function execute!(io, ws::Whitespace)
     ws.labels = find_labels(ws.insns)
-    vm_execute!(ws)
+    vm_execute!(io, ws)
 end
+
+execute!(ws::Whitespace) = execute!(stdout, ws)
 
 end # module

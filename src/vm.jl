@@ -1,4 +1,4 @@
-function vm_execute!(ws)
+function vm_execute!(io, ws)
     return_to = Vector{Int}()
     pc = 1
     while pc < length(ws.insns) + 1
@@ -77,9 +77,9 @@ function vm_execute!(ws)
             return
 
         elseif insn == :char_out
-            print(Char(pop!(ws.stack)))
+            print(io, Char(pop!(ws.stack)))
         elseif insn == :num_out
-            print(pop!(ws.stack))
+            print(io, pop!(ws.stack))
         elseif insn == :char_in
             address = pop!(ws.stack)
             ws.heap[address] = read(stdin, Char)
@@ -92,6 +92,8 @@ function vm_execute!(ws)
     end
     error()
 end
+
+vm_execute!(ws) = vm_execute!(stdout, ws)
 
 function find_labels(insns)
     labels = Dict()
